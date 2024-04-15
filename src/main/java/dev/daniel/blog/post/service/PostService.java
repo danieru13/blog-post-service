@@ -2,7 +2,9 @@ package dev.daniel.blog.post.service;
 
 import dev.daniel.blog.post.model.Post;
 import dev.daniel.blog.post.repository.PostRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,5 +24,12 @@ public class PostService {
     public void save(Post post){
         post.setDateCreated(LocalDateTime.now());
         postRepository.save(post);
+    }
+
+    public void delete(Long id){
+        if(!postRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found");
+        }
+        postRepository.deleteById(id);
     }
 }
