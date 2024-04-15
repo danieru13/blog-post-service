@@ -5,6 +5,7 @@ import dev.daniel.blog.post.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,6 +21,11 @@ public class PostController {
     @GetMapping("")
     public List<Post> findAll(){
         return postService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Post findById(@PathVariable Long id) {
+        return postService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found"));
     }
 
     @ResponseStatus(HttpStatus.CREATED)
