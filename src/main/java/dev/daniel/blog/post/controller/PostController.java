@@ -35,6 +35,12 @@ public class PostController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    public void update(@RequestBody @Valid Post post, @PathVariable Long id){
+        postService.update(post, id);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
         postService.delete(id);

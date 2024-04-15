@@ -26,6 +26,15 @@ public class PostService {
         postRepository.save(post);
     }
 
+    public void update(Post post, Long id){
+        if(!postRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found");
+        }
+        post.setId(id);
+        post.setDateUpdated(LocalDateTime.now());
+        postRepository.save(post);
+    }
+
     public void delete(Long id){
         if(!postRepository.existsById(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found");
