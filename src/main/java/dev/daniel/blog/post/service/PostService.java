@@ -21,6 +21,8 @@ public class PostService {
 
     public Optional<Post> findById(Long id){return postRepository.findById(id);}
 
+    public List<Post> findByTitle(String keyword){return postRepository.findAllByTitleContainsIgnoreCase(keyword);}
+
     public void save(Post post){
         post.setDateCreated(LocalDateTime.now());
         postRepository.save(post);

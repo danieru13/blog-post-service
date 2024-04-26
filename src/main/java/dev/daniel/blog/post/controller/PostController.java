@@ -28,6 +28,11 @@ public class PostController {
         return postService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found"));
     }
 
+    @GetMapping("/filter/{keyword}")
+    public List<Post> findByTitle(@PathVariable String keyword){
+        return postService.findByTitle(keyword);
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public void create(@RequestBody @Valid Post post){
